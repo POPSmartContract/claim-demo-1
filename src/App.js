@@ -1,11 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Connection, Keypair, SystemProgram, Transaction, PublicKey} from "@solana/web3.js";
 
-// MetaPlex Program Address
-const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID = new PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
-const TOKEN_METADATA_PROGRAM_ID = new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
-const TOKEN_PROGRAM_ID = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
-
 const getProvider = () => {
     if ("solana" in window) {
         const provider = window.solana;
@@ -97,80 +92,10 @@ function App(dataLength, commitment) {
     };
 
 
-
-
-
-
-
-
-    // MINT ------------------------------------------------------------------------------------------
-
-    const getTokenWallet = async (wallet, mint) => {
-        return (
-            await PublicKey.findProgramAddress(
-                [wallet.toBuffer(), TOKEN_PROGRAM_ID.toBuffer(), mint.toBuffer()],
-                SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID
-            )
-        )[0];
-    };
-
-    const getMetadata = async (mint) => {
-        return (
-            await PublicKey.findProgramAddress(
-                [
-                    Buffer.from("metadata"),
-                    TOKEN_METADATA_PROGRAM_ID.toBuffer(),
-                    mint.toBuffer(),
-                ],
-                TOKEN_METADATA_PROGRAM_ID
-            )
-        )[0];
-    };
-
-    const getMasterEdition = async (mint) => {
-        return (
-            await PublicKey.findProgramAddress(
-                [
-                    Buffer.from("metadata"),
-                    TOKEN_METADATA_PROGRAM_ID.toBuffer(),
-                    mint.toBuffer(),
-                    Buffer.from("edition"),
-                ],
-                TOKEN_METADATA_PROGRAM_ID
-            )
-        )[0];
-    };
-
-
-    const sendMint = async () => {
-        console.log('Mint! < -----------')
-
-        const mint = Keypair.generate();
-        const token = await getTokenWallet( window.solana.publicKey, mint.publicKey);
-        console.log(token.toString());
-        const metadata = await getMetadata(mint.publicKey);
-        console.log(metadata.toString());
-        const masterEdition = await getMasterEdition(mint.publicKey);
-        console.log(masterEdition.toString());
-        const rent = await connection.getMinimumBalanceForRentExemption();
-        console.log(rent);
-
-    }
-
-
-
-
-
-
-
-
-
-
-
     return (
     <div className="container-fluid">
     <div className="container text-center mt-5">
-        <h1>Artyste Mint Using MetaPlex</h1>
+        <h1>Claim NFT</h1>
         { publicKey && (
             <div>
                 { publicKey }
@@ -185,7 +110,6 @@ function App(dataLength, commitment) {
 
                 <button className="btn btn-warning m-3" onClick={sendTransaction}>Transaction</button>
 
-                <button className="btn btn-success m-3" onClick={sendMint}>Mint</button>
             </div>
         )}
 
