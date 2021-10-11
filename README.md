@@ -1,1 +1,1 @@
-# artyste-metaplex-mint-demo
+# claim-demo
