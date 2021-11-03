@@ -42,8 +42,8 @@ function App(dataLength, commitment) {
   const [publicKey, setpublicKey] = useState(null);
   const [mint, setNft] = useState(null);
   const [phantomConnect, setPhantomConnect] = useState(false);
-//   const connection = new Connection("https://api.devnet.solana.com");
-   const connection = new Connection('https://api.mainnet-beta.solana.com');
+  //   const connection = new Connection("https://api.devnet.solana.com");
+  const connection = new Connection("https://api.mainnet-beta.solana.com");
 
   const connect = async () => {
     const resp = await window.solana.connect();
@@ -66,16 +66,12 @@ function App(dataLength, commitment) {
         const accountInfo = await connection.getAccountInfo(metadataKey);
         if (accountInfo && accountInfo.data.length > 0) {
           // const metadata = decodeMetadata(accountInfo.data);
-          nftItems.push({
-            account: pubKey.toString(),
-            mint: info.mint,
-            // metadata
-          });
+          nftItems.push(info.mint);
         }
       }
     }
 
-    const mint = nftItems[0].mint;
+    const mint = nftItems;
 
     console.log("nftItems", mint);
 
