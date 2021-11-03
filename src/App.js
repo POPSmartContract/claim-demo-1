@@ -42,8 +42,8 @@ function App(dataLength, commitment) {
   const [publicKey, setpublicKey] = useState(null);
   const [mint, setNft] = useState(null);
   const [phantomConnect, setPhantomConnect] = useState(false);
-  const connection = new Connection("https://api.devnet.solana.com");
-  //     const connection = new Connection('https://api.mainnet-beta.solana.com');
+//   const connection = new Connection("https://api.devnet.solana.com");
+   const connection = new Connection('https://api.mainnet-beta.solana.com');
 
   const connect = async () => {
     const resp = await window.solana.connect();
