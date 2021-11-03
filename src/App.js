@@ -68,7 +68,7 @@ function App(dataLength, commitment) {
             }
         }
 
-        // console.log("nftItems", nftItems)
+        console.log("nftItems", nftItems)
         // script ends
     };
 
