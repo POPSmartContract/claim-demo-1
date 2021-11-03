@@ -40,7 +40,7 @@ async function generatePDA(tokenMint, addEditionToSeeds = false) {
 function App(dataLength, commitment) {
   const provider = getProvider();
   const [publicKey, setpublicKey] = useState(null);
-  const [nft, setNft] = useState(null);
+  const [mint, setNft] = useState(null);
   const [phantomConnect, setPhantomConnect] = useState(false);
   const connection = new Connection("https://api.devnet.solana.com");
   //     const connection = new Connection('https://api.mainnet-beta.solana.com');
@@ -49,7 +49,7 @@ function App(dataLength, commitment) {
     const resp = await window.solana.connect();
     setPhantomConnect(true);
     const pubKey = resp.publicKey.toString();
-    setpublicKey(pubKey);
+    setpublicKey(`Your public key is  ${pubKey}`);
 
     // Test script to retrieve all assets of the address
     const nftItems = [];
@@ -75,9 +75,11 @@ function App(dataLength, commitment) {
       }
     }
 
-    console.log("nftItems", nftItems);
+    const mint = nftItems[0].mint;
 
-    setNft(nftItems);
+    console.log("nftItems", mint);
+
+    setNft(`Your NFT collection is ${mint}`);
     // script ends
   };
 
@@ -109,9 +111,9 @@ function App(dataLength, commitment) {
     <div className="container-fluid">
       <div className="container text-center mt-5">
         <h1>Claim NFT</h1>
-        {{ publicKey } && <div>Your public key is {publicKey}</div>}
+        {publicKey && <div>{publicKey}</div>}
 
-        {nft && <div>Your NFT collection is: {JSON.stringify(nft)}</div>}
+        {mint && <div>{mint}</div>}
 
         {!phantomConnect ? (
           <button className="btn btn-primary" onClick={connect}>
