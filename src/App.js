@@ -39,8 +39,8 @@ function App(dataLength, commitment) {
     const provider = getProvider();
     const [publicKey, setpublicKey] = useState(null);
     const [phantomConnect, setPhantomConnect] = useState(false);
-    // const connection = new Connection('https://api.devnet.solana.com');
-    const connection = new Connection('https://api.mainnet-beta.solana.com');
+    const connection = new Connection('https://api.devnet.solana.com');
+//     const connection = new Connection('https://api.mainnet-beta.solana.com');
 
     const connect = async () => {
         const resp = await window.solana.connect();
@@ -49,7 +49,7 @@ function App(dataLength, commitment) {
 
         // Test script to retrieve all assets of the address
         const nftItems = [];
-        const testPubkey = new PublicKey("7FU1MjnEmpvkg3JqxSH2Qjmiaer43tNB1AeSLR48UFz8");
+        const testPubkey = new PublicKey("DHgHbmUXmbPK5NGhzAQLJ22XYSseatVPonwtjtAqqnBK");
         const tokenAccounts = await connection.getParsedTokenAccountsByOwner(testPubkey, { programId: TOKEN_PROGRAM_ID });
         for (let i = 0; i < tokenAccounts.value.length; i++) {
             const pubKey = tokenAccounts.value[i].pubkey;
