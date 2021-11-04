@@ -42,8 +42,8 @@ function App(dataLength, commitment) {
   const [publicKey, setpublicKey] = useState(null);
   const [mint, setNft] = useState(null);
   const [phantomConnect, setPhantomConnect] = useState(false);
-  //   const connection = new Connection("https://api.devnet.solana.com");
-  const connection = new Connection("https://api.mainnet-beta.solana.com");
+  const connection = new Connection("https://api.devnet.solana.com");
+  // const connection = new Connection("https://api.mainnet-beta.solana.com");
 
   const connect = async () => {
     const resp = await window.solana.connect();
@@ -107,9 +107,6 @@ function App(dataLength, commitment) {
     <div className="container-fluid">
       <div className="container text-center mt-5">
         <h1>Claim NFT</h1>
-        {publicKey && <div>{publicKey}</div>}
-
-        {mint && <div>{mint}</div>}
 
         {!phantomConnect ? (
           <button className="btn btn-primary" onClick={connect}>
@@ -117,6 +114,9 @@ function App(dataLength, commitment) {
           </button>
         ) : (
           <div>
+            <div>{publicKey}</div>
+
+            <div>{mint}</div>
             <button className="btn btn-danger m-3" onClick={disconnect}>
               Disconect
             </button>
@@ -128,39 +128,3 @@ function App(dataLength, commitment) {
 }
 
 export default App;
-
-// const sendTransaction = async () => {
-//     // Create a Transaction!
-//     const transaction = new Transaction().add(
-//       SystemProgram.transfer({
-//         fromPubkey: window.solana.publicKey,
-//         toPubkey: "DGLyGabZHc2Xb7znZD9FiQouYjtb52dgeZEcGY37uvng",
-//         lamports: 1000000000,
-//       })
-//     );
-//     transaction.feePayer = window.solana.publicKey;
-//     transaction.recentBlockhash = (
-//       await connection.getRecentBlockhash()
-//     ).blockhash;
-
-//     if (transaction) {
-//       try {
-//         // Signed the Transaction Using Phantom!
-//         let signed = await provider.signTransaction(transaction);
-
-//         console.log("Got signature, submitting transaction");
-
-//         // Send a Transaction!
-//         let signature = await connection.sendRawTransaction(signed.serialize());
-
-//         // Wait the Transaction!
-//         await connection.confirmTransaction(signature).then(() => {
-//           console.log("Transaction Succeed!");
-//           console.log(signature);
-//         });
-//       } catch (err) {
-//         console.log(err);
-//         console.log("Error: " + JSON.stringify(err));
-//       }
-//     }
-//   };
